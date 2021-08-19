@@ -1,0 +1,24 @@
+http://localhost/Director
+
+install-module -name exchangeonlinemanagement
+
+if no mail in control panel:
+C:\Program Files (x86)\Microsoft Office\root\Office16\MLCFG32.CPL
+
+Password change in RDS (Ctrl+alt+del scipt)
+C:\Windows\explorer.exe shell:::{2559a1f2-21d7-11d4-bdaf-00c04f60b9f0}
+
+================
+PS TO SET READ ONLY IN MAILBOX
+$user = "tina.tang@bright-duggan.com.au", "alyssa.zhao@bright-duggan.com.au", "nicole.cai@bright-duggan.com.au", "jenny.jiang@bright-duggan.com.au"
+Foreach ($U in $user){
+    Remove-MailboxPermission -identity "ACC Payable" -user $U -Accessrights FullAccess
+    add-mailboxpermission -identity "ACC Payable" -user $U -Accessrights Readpermission
+}
+===============
+PS to Set Public folder and subfolders permission
+Get-PublicFolder -resultsize Unlimited -Identity "\PublicFolderName" -Recurse | Add-PublicFolderClientPermission -User UserName -AccessRights PublishingEditor
+==============
+PS to get who has full access to the mailbox
+[PS] C:\>Get-Mailbox -ResultSize Unlimited | Get-MailboxPermission -User "Amanda Morgan" | ft User,Identity,AccessRights
+==============
